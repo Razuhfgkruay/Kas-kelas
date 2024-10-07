@@ -76,3 +76,32 @@
     </div>
 
 </body></html>
+<script>
+    function saveChecklist() {
+    const checklist = [];
+    const items = document.querySelectorAll('#checklist input[type="checkbox"]');
+
+    items.forEach(item => {
+        checklist.push({
+            id: item.id,
+            checked: item.checked
+        });
+    });
+
+    // Simpan ke Local Storage
+    localStorage.setItem('checklist', JSON.stringify(checklist));
+    alert('Checklist disimpan!');
+}
+function loadChecklist() {
+    const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
+    checklist.forEach(item => {
+        const checkbox = document.getElementById(item.id);
+        if (checkbox) {
+            checkbox.checked = item.checked;
+        }
+    });
+}
+
+// Panggil fungsi loadChecklist saat halaman dibuka
+window.onload = loadChecklist;
+</script>
