@@ -76,32 +76,217 @@
     </div>
 
 </body></html>
-<script>
-    function saveChecklist() {
-    const checklist = [];
-    const items = document.querySelectorAll('#checklist input[type="checkbox"]');
 
-    items.forEach(item => {
-        checklist.push({
-            id: item.id,
-            checked: item.checked
-        });
-    });
+By : Razuhfgkruay 
 
-    // Simpan ke Local Storage
-    localStorage.setItem('checklist', JSON.stringify(checklist));
-    alert('Checklist disimpan!');
-}
-function loadChecklist() {
-    const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
-    checklist.forEach(item => {
-        const checkbox = document.getElementById(item.id);
-        if (checkbox) {
-            checkbox.checked = item.checked;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kas Kelas</title>
+    <style>
+        /* Gaya untuk tampilan */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff;
         }
-    });
-}
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .checklist-container {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 70%;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Checklist Kas Kelas</h1>
+    <div class="checklist-container">
+        <input type="text" id="newItem" placeholder="Tambah Item...">
+        <button onclick="addItem()">Tambah</button>
+        <ul id="checklist"></ul>
+    </div>
+    
+    <script>
+        // Fungsi untuk menambahkan item
+        function addItem() {
+            const input = document.getElementById('newItem');
+            const itemText = input.value.trim();
+            if (itemText === '') return; // Jika input kosong, keluar dari fungsi
 
-// Panggil fungsi loadChecklist saat halaman dibuka
-window.onload = loadChecklist;
-</script>
+            const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
+            checklist.push({ text: itemText, done: false });
+            localStorage.setItem('checklist', JSON.stringify(checklist));
+            input.value = ''; // Bersihkan input setelah menambah
+            renderChecklist(); // Perbarui tampilan checklist
+        }
+
+        // Fungsi untuk merender checklist dari localStorage
+        function renderChecklist() {
+            const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
+            const checklistElement = document.getElementById('checklist');
+            checklistElement.innerHTML = ''; // Kosongkan daftar sebelumnya
+            
+            checklist.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <input type="checkbox" onchange="toggleItem(${index})" ${item.done ? 'checked' : ''}>
+                    ${item.text}
+                    <button onclick="removeItem(${index})">Hapus</button>
+                `;
+                checklistElement.appendChild(li);
+            });
+        }
+
+        // Fungsi untuk mengubah status item
+        function toggleItem(index) {
+            const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
+            checklist[index].done = !checklist[index].done; // Balikkan status done
+            localStorage.setItem('checklist', JSON.stringify(checklist));
+            renderChecklist(); // Perbarui tampilan checklist
+        }
+
+        // Fungsi untuk menghapus item
+        function removeItem(index) {
+            const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
+            checklist.splice(index, 1); // Hapus item dari array
+            localStorage.setItem('checklist', JSON.stringify(checklist));
+            renderChecklist(); // Perbarui tampilan checklist
+        }
+
+        // Memanggil renderChecklist saat halaman dimuat
+        window.onload = renderChecklist;
+    </script>
+</body>
+</html>
+
+By : Razuhfgkruay 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kas Kelas</title>
+    <style>
+        /* Gaya untuk tampilan */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .checklist-container {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 70%;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Checklist Kas Kelas</h1>
+    <div class="checklist-container">
+        <input type="text" id="newItem" placeholder="Tambah Item...">
+        <button onclick="addItem()">Tambah</button>
+        <ul id="checklist"></ul>
+    </div>
+    
+    <script>
+        // Fungsi untuk menambahkan item
+        function addItem() {
+            const input = document.getElementById('newItem');
+            const itemText = input.value.trim();
+            if (itemText === '') return; // Jika input kosong, keluar dari fungsi
+
+            const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
+            checklist.push({ text: itemText, done: false });
+            localStorage.setItem('checklist', JSON.stringify(checklist));
+            input.value = ''; // Bersihkan input setelah menambah
+            renderChecklist(); // Perbarui tampilan checklist
+        }
+
+        // Fungsi untuk merender checklist dari localStorage
+        function renderChecklist() {
+            const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
+            const checklistElement = document.getElementById('checklist');
+            checklistElement.innerHTML = ''; // Kosongkan daftar sebelumnya
+            
+            checklist.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <input type="checkbox" onchange="toggleItem(${index})" ${item.done ? 'checked' : ''}>
+                    ${item.text}
+                    <button onclick="removeItem(${index})">Hapus</button>
+                `;
+                checklistElement.appendChild(li);
+            });
+        }
+
+        // Fungsi untuk mengubah status item
+        function toggleItem(index) {
+            const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
+            checklist[index].done = !checklist[index].done; // Balikkan status done
+            localStorage.setItem('checklist', JSON.stringify(checklist));
+            renderChecklist(); // Perbarui tampilan checklist
+        }
+
+        // Fungsi untuk menghapus item
+        function removeItem(index) {
+            const checklist = JSON.parse(localStorage.getItem('checklist')) || [];
+            checklist.splice(index, 1); // Hapus item dari array
+            localStorage.setItem('checklist', JSON.stringify(checklist));
+            renderChecklist(); // Perbarui tampilan checklist
+        }
+
+        // Memanggil renderChecklist saat halaman dimuat
+        window.onload = renderChecklist;
+    </script>
+</body>
+</html>
