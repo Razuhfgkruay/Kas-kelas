@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Kas Kelas</title>
+    <style>
+        body {
+            background-color: #f0f8ff; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .login-container {
+            background-color: #ffffff; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+            width: 300px;
+        }
+        .login-container h1 {
+            color: #007bff; 
+            text-align: center;
+        }
+        .login-container input[type="text"], 
+        .login-container input[type="password"] {
+            width: 100%; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            font-size: 14px;
+        }
+        .login-container button {
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            padding: 10px; 
+            width: 100%; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-size: 16px;
+        }
+        .login-container button:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+        .error-message {
+            color: red; 
+            text-align: center; 
+            margin-top: 10px; 
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login Kas Kelas</h1>
+        <div class="error-message" id="error-message">Username atau password salah.</div>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+    </div>
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Validasi input sederhana
+            if (username === "" || password === "") {
+                errorMessage.innerText = "Semua field harus diisi.";
+                errorMessage.style.display = "block";
+                return;
+            }
+
+            // Username dan password yang benar
+            const validUsername = "ketua ganteng"; // Ganti dengan username yang Anda inginkan
+            const validPassword = "ganteng banget"; // Ganti dengan password yang Anda inginkan
+
+            // Memeriksa kredensial
+            if (username === validUsername && password === validPassword) {
+                // Jika kredensial benar, arahkan ke kas.html
+                window.location.href = 'kas.html'; 
+            } else {
+                // Jika kredensial salah, tampilkan pesan kesalahan
+                errorMessage.innerText = "Username atau password salah.";
+                errorMessage.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
